@@ -1,0 +1,7 @@
+{
+  "name": "movieTimes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
