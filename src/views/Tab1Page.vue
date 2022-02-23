@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
+        <ion-title>Current Movies</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -12,8 +12,20 @@
         </ion-toolbar>
       </ion-header>
       <h1>  Currently showing movies</h1>
+      
+
+      <ion-item>
+        <ion-label>Genre Filter</ion-label>
+        <ion-select v-model="selectedGenre" interface="popover">
+          <ion-select-option v-for="genre in genres" :key="genre.code" :value="genre.code">{{genre.name}}</ion-select-option>
+          <ion-select-option value="none">Clear</ion-select-option>
+        </ion-select>
+      </ion-item>
       <ion-list>
-        <ion-item v-for="movie in movies" :key="movie.Id">
+        <ion-item v-for="movie in filteredMovie" :key="movie.Id">
+            <ion-thumbnail slot="start">
+              <img  v-bind:src="movie.LargePosterUrl" alt="not found" />
+            </ion-thumbnail>
             <ion-label>
               <h2>{{movie.Name}}</h2>
               <h3>{{movie.Director}}</h3>
@@ -27,27 +39,31 @@
 
 <script>
 import { defineComponent } from 'vue';
-// import axios from 'axios';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent , IonList, IonItem, IonLabel } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent , IonList, IonItem, IonLabel, IonThumbnail, IonSelect, IonSelectOption } from '@ionic/vue';
 
 export default defineComponent({
   name: 'Tab1Page',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonLabel},
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonLabel, IonThumbnail, IonSelect, IonSelectOption},
   data(){
     return{
       movies:[],
+      genres:[],
+      selectedGenre:"none",
+    }
+  },
+  computed:{
+    filteredMovie(){
+      if( this.selectedGenre == "none"){
+        return this.movies
+      } else {
+        return this.movies.filter(movie => movie.Genres == this.selectedGenre)
+      }
     }
   },
   mounted(){
-    // fetch('https://localhost:8100/Movies/GetNowShowing')
-    // .then(res=>res.json())
-    // .then((res)=>console.log(res))
-    //  https://www.eventcinemas.com.au/Movies/GetNowShowing
-    // .catch(err=>console.log("ERROR - "+err.message))
-    // axios.get('https://localhost:8100/Movies/GetNowShowing');
     fetch('http://localhost:8100/Movies/GetNowShowing')
       .then(response => response.json())
-      .then(data => (this.movies=data.Data.Movies))
+      .then(data => (this.movies=data.Data.Movies, this.genres=data.Data.Genres))
   }
 });
 </script>
