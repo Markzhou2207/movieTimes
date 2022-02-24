@@ -23,33 +23,50 @@
         </ion-select>
       </ion-item>
       <ion-list>
-        <ion-item v-for="movie in filteredMovie" :key="movie.Id">
+        <ion-item v-for="movie in filteredMovie" :key="movie.Id" v-on:click='openModal(movie)'>
             <ion-thumbnail slot="start">
               <img  v-bind:src="movie.LargePosterUrl" alt="not found" />
             </ion-thumbnail>
             <ion-label>
-              <router-link :to="{ name: 'movieInfo', params: { movieInfo: movie, name:movie.Name, genre: movie.Genres, poster: movie.LargePosterUrl }}"><h2>{{movie.Name}}</h2></router-link>
+              <!-- <router-link :to="{ name: 'movieInfo', params: { movieInfo: movie, name:movie.Name, genre: movie.Genres, poster: movie.LargePosterUrl }}"><h2>{{movie.Name}}</h2></router-link> -->
+              <h2>{{movie.Name}}</h2>
               <h3>{{movie.Director}}</h3>
               <p>{{movie.Genres}}</p>
             </ion-label>
         </ion-item>
       </ion-list>
+      <InformationModal :isVisible="this.modalVisible" v-bind:info="this.selectedMovie" @cancel='closeModal()'/>
+
     </ion-content>
   </ion-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import InformationModal from '@/components/InformationModal.vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent , IonList, IonItem, IonLabel, IonThumbnail, IonSelect, IonSelectOption } from '@ionic/vue';
 
 export default defineComponent({
   name: 'Tab1Page',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonLabel, IonThumbnail, IonSelect, IonSelectOption},
+  components: { InformationModal, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonLabel, IonThumbnail, IonSelect, IonSelectOption},
   data(){
     return{
       movies:[],
       genres:[],
       selectedGenre:"none",
+      modalVisible:false,
+      selectedMovie:""
+    }
+  },
+  methods:{
+    openModal(movie){
+      this.selectedMovie=movie;
+      this.modalVisible=true;
+      console.log(this.modalVisible)
+    },
+    closeModal(){
+      this.modalVisible=false;
+
     }
   },
   computed:{

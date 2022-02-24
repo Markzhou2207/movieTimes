@@ -38,7 +38,6 @@ export default defineComponent({
     movieInfo:{
       required: true
     },
-
     name:{
       required: true,
       default: null

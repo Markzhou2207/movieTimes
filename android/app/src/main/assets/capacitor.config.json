@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "movieTimes",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

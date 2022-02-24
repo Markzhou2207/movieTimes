@@ -46,6 +46,8 @@
           <p>Genre: {{genre}}</p>
           <p>Toggled: {{toggle}}</p>
         </div>
+        <ion-button v-on:click='changeModal' >Open Modal</ion-button>
+        <InformationModal :isVisible="this.modalVisible" @cancel='changeModal'/>
       </div>
 
     </ion-content>
@@ -54,15 +56,22 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle, IonItem} from '@ionic/vue';
+import InformationModal from '@/components/InformationModal.vue';
+
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle, IonItem } from '@ionic/vue';
 export default defineComponent({
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle, IonItem},
+  components: { InformationModal,IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle, IonItem},
+  
   methods:{
     handleSubmit(){
       console.log(this.date)
       console.log(this.genre)
       console.log(this.toggle)
       this.submitted=true
+    },
+    changeModal(){
+      console.log(this.modalVisible)
+      this.modalVisible=!this.modalVisible;
     }
   },
   data(){
@@ -70,7 +79,8 @@ export default defineComponent({
       date:'',
       genre:'',
       toggle:true,
-      submitted:false
+      submitted:false,
+      modalVisible:false
     }
   }
 
