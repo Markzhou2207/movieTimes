@@ -11,8 +11,9 @@
           <ion-title size="large">Tab 1</ion-title>
         </ion-toolbar>
       </ion-header>
-      <h1>  Currently showing movies</h1>
-      
+      <div id='page-title'>
+        <h1>  Currently showing movies</h1>
+      </div>
 
       <ion-item>
         <ion-label>Genre Filter</ion-label>
@@ -27,7 +28,7 @@
               <img  v-bind:src="movie.LargePosterUrl" alt="not found" />
             </ion-thumbnail>
             <ion-label>
-              <h2>{{movie.Name}}</h2>
+              <router-link :to="{ name: 'movieInfo', params: { movieInfo: movie, name:movie.Name, genre: movie.Genres, poster: movie.LargePosterUrl }}"><h2>{{movie.Name}}</h2></router-link>
               <h3>{{movie.Director}}</h3>
               <p>{{movie.Genres}}</p>
             </ion-label>
@@ -67,3 +68,13 @@ export default defineComponent({
   }
 });
 </script>
+
+
+<style scoped>
+p {
+  text-transform: capitalize;
+}
+#page-title{
+  text-align: center;
+}
+</style>

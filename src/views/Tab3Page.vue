@@ -54,9 +54,9 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle} from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle, IonItem} from '@ionic/vue';
 export default defineComponent({
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle},
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonDatetime, IonButton, IonLabel, IonSegment, IonSegmentButton, IonToggle, IonItem},
   methods:{
     handleSubmit(){
       console.log(this.date)

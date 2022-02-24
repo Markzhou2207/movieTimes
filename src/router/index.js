@@ -19,8 +19,10 @@ const routes = [
         component: () => import('@/views/Tab1Page.vue')
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
+        name: 'movieInfo',
+        path: '/movieinfo/:movieInfo', 
+        component: () => import('@/views/MovieInfoPage.vue'),
+        props: true
       },
       {
         path: 'tab3',
